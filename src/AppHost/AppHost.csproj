@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>CleanArchitecture.AppHost</RootNamespace>
     <AssemblyName>CleanArchitecture.AppHost</AssemblyName>
+    <IncludeSymbols>False</IncludeSymbols>
+    <DefineConstants>UseSqlServer</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

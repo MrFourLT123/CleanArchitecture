@@ -26,7 +26,7 @@ public static class DependencyInjection
 #if (UsePostgreSQL)
             options.UseNpgsql(connectionString);
 #elif (UseSqlServer)
-            options.UseSqlServer(connectionString);
+            options.UseSqlServer(builder.Configuration.GetConnectionString("CleanArchitectureDb"));
 #else
             options.UseSqlite(connectionString);
 #endif

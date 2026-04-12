@@ -3,6 +3,7 @@
   <PropertyGroup>
     <RootNamespace>CleanArchitecture.Infrastructure</RootNamespace>
     <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
+    <DefineConstants>UseSqlServer</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
