@@ -4,11 +4,13 @@ using System.Text;
 
 namespace CleanArchitecture.Domain.Entities;
 
-public class UserVocabTestResults
+public class Progress
 {
     public int Id { get; set; }
-    public required string UserId { get; set; }
-    public int VocabTestId { get; set; }
+    public int UserId { get; set; }
+
+    public int LessonId { get; set; }
+    public bool Completed { get; set; }
     public int Score { get; set; }
-    public DateTime TakenAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }
