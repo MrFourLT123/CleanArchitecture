@@ -15,6 +15,33 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
+    public DbSet<Archievements> Archievements => Set<Archievements>();
+
+    public DbSet<Lessons> Lessons => Set<Lessons>();
+
+    public DbSet<Progress> Progress => Set<Progress>();
+
+    public DbSet<VocabCards> VocabCards => Set<VocabCards>();
+
+    public DbSet<Excercises> Excercises => Set<Excercises>();
+
+    public DbSet<Categories> Categories => Set<Categories>();
+
+    public DbSet<Leaderboard> Leaderboards => Set<Leaderboard>();
+
+    public DbSet<UserAchivements> UserAchivements => Set<UserAchivements>();
+
+    public DbSet<UserVocabTestAnswers> UserVocabTestAnswers => Set<UserVocabTestAnswers>();
+
+    public DbSet<UserVocabTestResults> UserVocabTestResults => Set<UserVocabTestResults>();
+
+    public DbSet<VocabTestOptions> VocabTestOptions => Set<VocabTestOptions>();
+
+    public DbSet<VocabTests> VocabTests => Set<VocabTests>();
+
+    public DbSet<VocabTestQuestions> VocabTestQuestions => Set<VocabTestQuestions>();
+
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
