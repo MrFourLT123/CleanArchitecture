@@ -14,6 +14,5 @@ public class LeaderboardConfiguration : IEntityTypeConfiguration<Leaderboard>
         builder.Property(t => t.Id).IsRequired();
         builder.Property(t => t.UserId).IsRequired();
         builder.Property(t => t.Points).IsRequired();
-        builder.Property(t => t.Rank).IsRequired(false);
     }
 }
