@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CleanArchitecture.Domain.Entities;
 
-public class Lessons
+public class Lesson
 {
     public int Id { get; set; }
     public required string Title { get; set; }

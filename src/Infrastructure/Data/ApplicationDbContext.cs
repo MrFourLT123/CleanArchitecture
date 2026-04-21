@@ -17,7 +17,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Archievements> Archievements => Set<Archievements>();
 
-    public DbSet<Lessons> Lessons => Set<Lessons>();
+    public DbSet<Lesson> Lessons => Set<Lesson>();
 
     public DbSet<Progress> Progress => Set<Progress>();
 

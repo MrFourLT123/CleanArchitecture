@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CleanArchitecture.Infrastructure.Data.Configurations;
 
-public class LessonConfiguration : IEntityTypeConfiguration<Lessons>
+public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
 {
-    public void Configure(EntityTypeBuilder<Lessons> builder)
+    public void Configure(EntityTypeBuilder<Lesson> builder)
     {
         builder.Property(t => t.Id).IsRequired();
         builder.Property(t => t.Title).IsRequired();

@@ -24,5 +24,4 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
 
         await _context.SaveChangesAsync(cancellationToken);
     }
-
 }
