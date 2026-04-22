@@ -25,7 +25,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Excercises> Excercises => Set<Excercises>();
 
-    public DbSet<Categories> Categories => Set<Categories>();
+    public DbSet<Category> Categories => Set<Category>();
 
     public DbSet<Leaderboard> Leaderboards => Set<Leaderboard>();
 

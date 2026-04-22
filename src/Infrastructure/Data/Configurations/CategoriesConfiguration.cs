@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CleanArchitecture.Infrastructure.Data.Configurations;
 
-public class CategoriesConfiguration : IEntityTypeConfiguration<Categories>
+public class CategoriesConfiguration : IEntityTypeConfiguration<Category>
 {
-    public void Configure(EntityTypeBuilder<Categories> builder)
+    public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.Property(t => t.Name).IsRequired();
         builder.Property(t=> t.Id).IsRequired();

@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Categories\EventHandlers\" />
     <Folder Include="Lessons\EventHandlers\" />
   </ItemGroup>
 
