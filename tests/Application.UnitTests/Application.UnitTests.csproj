@@ -22,6 +22,11 @@
         <PackageReference Include="Shouldly" />
     </ItemGroup>
 
+      <ItemGroup>
+        <PackageReference Include="OpenTelemetry.Api" />
+        <PackageReference Include="System.Security.Cryptography.Xml" />
+      </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\..\src\Application\Application.csproj" />
         <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />

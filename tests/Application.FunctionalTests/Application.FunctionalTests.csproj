@@ -25,6 +25,11 @@
       <PackageReference Include="Aspire.Hosting.Testing" />
     </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry.Api" />
+    <PackageReference Include="System.Security.Cryptography.Xml" />
+  </ItemGroup>
+
     <ItemGroup>
       <Using Include="Aspire.Hosting" />
       <Using Include="Aspire.Hosting.ApplicationModel" />
