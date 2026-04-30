@@ -1,13 +1,23 @@
 using CleanArchitecture.Application.Lessons.Commands.CreateLesson;
 using CleanArchitecture.Application.Lessons.Commands.DeleteLesson;
 using CleanArchitecture.Application.Lessons.Commands.UpdateLesson;
+using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
-
 public class Lessons : IEndpointGroup
 {
     public static void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGet("/lessons", () => new[] { "Lesson 1", "Lesson 2", "Lesson 3" });
+        groupBuilder.MapGet("/lessons", GetLessonList);
+        groupBuilder.MapPost(CreateLesson);
+        groupBuilder.MapPut(UpdateLesson, "{id}");
+        groupBuilder.MapDelete(DeleteLesson, "{id}");
+    }
+
+    private static async Task<Ok<List<Lesson>>> GetLessonList(ISender sender)
+    {
+        var query = new GetLessonsQuery();
+        var lessons = await sender.Send(query);
+        return TypedResults.Ok(lessons);
     }
 
     [EndpointSummary("Create a new Lesson")]
