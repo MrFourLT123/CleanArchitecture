@@ -2,6 +2,8 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 
+namespace CleanArchitecture.Application.Lessons.Queries;
+
 public record GetLessonsQuery : IRequest<List<Lesson>>;
 
 public class GetLessonsQueryHandler : IRequestHandler<GetLessonsQuery, List<Lesson>>

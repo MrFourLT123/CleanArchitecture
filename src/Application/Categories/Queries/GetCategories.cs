@@ -1,6 +1,8 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 
+namespace CleanArchitecture.Application.Categories.Queries.GetCategories;
+
 public record GetCategoriesQuery : IRequest<List<Category>>;
 
 public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, List<Category>>

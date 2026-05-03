@@ -1,8 +1,11 @@
 using CleanArchitecture.Application.Lessons.Commands.CreateLesson;
 using CleanArchitecture.Application.Lessons.Commands.DeleteLesson;
 using CleanArchitecture.Application.Lessons.Commands.UpdateLesson;
+using CleanArchitecture.Application.Lessons.Queries;
 using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
+namespace CleanArchitecture.Web.Endpoints;
+
 public class Lessons : IEndpointGroup
 {
     public static void Map(RouteGroupBuilder groupBuilder)
@@ -13,7 +16,9 @@ public class Lessons : IEndpointGroup
         groupBuilder.MapDelete(DeleteLesson, "{id}");
     }
 
-    private static async Task<Ok<List<Lesson>>> GetLessonList(ISender sender)
+    [EndpointSummary("Get all Lessons")]
+    [EndpointDescription("Retrieves all lessons along with their details.")]
+    public static async Task<Ok<List<Lesson>>> GetLessonList(ISender sender)
     {
         var query = new GetLessonsQuery();
         var lessons = await sender.Send(query);

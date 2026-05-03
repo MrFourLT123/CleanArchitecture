@@ -2,8 +2,10 @@
 using CleanArchitecture.Application.Categories.Commands.CreateCategory;
 using CleanArchitecture.Application.Categories.Commands.DeleteCategory;
 using CleanArchitecture.Application.Categories.Commands.UpdateCategory;
+using CleanArchitecture.Application.Categories.Queries.GetCategories;
 using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
+namespace CleanArchitecture.Web.Endpoints;
 
 public class Categories : IEndpointGroup
 {
