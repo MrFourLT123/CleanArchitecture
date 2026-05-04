@@ -15,7 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
-    public DbSet<Archievements> Archievements => Set<Archievements>();
+    public DbSet<Achievement> Achievements => Set<Achievement>();
 
     public DbSet<Lesson> Lessons => Set<Lesson>();
 
