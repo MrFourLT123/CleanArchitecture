@@ -17,6 +17,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Achievement> Achievements => Set<Achievement>();
 
+    public DbSet<Leaderboard> Leaderboards => Set<Leaderboard>();
+
     public DbSet<Lesson> Lessons => Set<Lesson>();
 
     public DbSet<Progress> Progress => Set<Progress>();

@@ -14,5 +14,7 @@ public interface IApplicationDbContext
 
     DbSet<Achievement> Achievements { get; }
 
+    DbSet<Leaderboard> Leaderboards { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
