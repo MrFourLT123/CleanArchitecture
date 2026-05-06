@@ -11,5 +11,6 @@ public interface IApplicationDbContext
     DbSet<Achievement> Achievements { get; }
     DbSet<Leaderboard> Leaderboards { get; }
     DbSet<Excercise> Excercises { get; }
+    DbSet<Progress> Progresses { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

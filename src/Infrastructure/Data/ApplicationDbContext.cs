@@ -21,7 +21,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Lesson> Lessons => Set<Lesson>();
 
-    public DbSet<Progress> Progress => Set<Progress>();
+    public DbSet<Progress> Progresses => Set<Progress>();
 
     public DbSet<VocabCards> VocabCards => Set<VocabCards>();
 
@@ -40,7 +40,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<VocabTests> VocabTests => Set<VocabTests>();
 
     public DbSet<VocabTestQuestions> VocabTestQuestions => Set<VocabTestQuestions>();
-
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
