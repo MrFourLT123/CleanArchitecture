@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CleanArchitecture.Domain.Entities;
 
-public class Excercises
+public class Excercise
 {
     public int Id { get; set; }
     public int LessonId { get; set; }

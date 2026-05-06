@@ -12,6 +12,9 @@ public class Leaderboards : IEndpointGroup
     public static void Map(RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet("/leaderboards", GetLeaderboardsAsync);
+        groupBuilder.MapPost(CreateLeaderboards);
+        groupBuilder.MapPut(UpdateLeaderboards, "{id}");
+        groupBuilder.MapDelete(DeleteLeaderboards, "{id}");
     }
 
     [EndpointSummary("Get all Leaderboards")]

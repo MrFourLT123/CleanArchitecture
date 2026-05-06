@@ -25,11 +25,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<VocabCards> VocabCards => Set<VocabCards>();
 
-    public DbSet<Excercises> Excercises => Set<Excercises>();
+    public DbSet<Excercise> Excercises => Set<Excercise>();
 
     public DbSet<Category> Categories => Set<Category>();
-
-    public DbSet<Leaderboard> Leaderboards => Set<Leaderboard>();
 
     public DbSet<UserAchivements> UserAchivements => Set<UserAchivements>();
 
