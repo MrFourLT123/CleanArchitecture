@@ -29,7 +29,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Category> Categories => Set<Category>();
 
-    public DbSet<UserAchivements> UserAchivements => Set<UserAchivements>();
+    public DbSet<UserAchivement> UserAchivements => Set<UserAchivement>();
 
     public DbSet<UserVocabTestAnswers> UserVocabTestAnswers => Set<UserVocabTestAnswers>();
 

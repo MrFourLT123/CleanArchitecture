@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CleanArchitecture.Domain.Entities;
 
-public class UserAchivements
+public class UserAchivement
 {
     public int Id { get; set; }
     public int UserId { get; set; }
