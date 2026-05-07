@@ -8,7 +8,6 @@ public record CreateUserAchivementCommand : IRequest<int>
     public int Id { get; set; }
     public int UserId { get; set; }
     public int AchivementId { get; set; }
-    public DateTime AwardedAt { get; set; }
 }
 
 public class CreateAchivementCommandHandler : IRequestHandler<CreateUserAchivementCommand, int>
@@ -26,7 +25,7 @@ public class CreateAchivementCommandHandler : IRequestHandler<CreateUserAchiveme
         {
             UserId = request.UserId,
             AchievementId = request.AchivementId,
-            AwardedAt = request.AwardedAt
+            AwardedAt = DateTime.UtcNow
         };
 
         _context.UserAchivements.Add(entity);
