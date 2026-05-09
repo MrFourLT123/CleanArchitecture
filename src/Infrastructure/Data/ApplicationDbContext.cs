@@ -23,7 +23,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Progress> Progresses => Set<Progress>();
 
-    public DbSet<VocabCards> VocabCards => Set<VocabCards>();
+    public DbSet<VocabCard> VocabCards => Set<VocabCard>();
 
     public DbSet<Excercise> Excercises => Set<Excercise>();
 

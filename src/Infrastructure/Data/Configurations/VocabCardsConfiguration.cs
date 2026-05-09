@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CleanArchitecture.Infrastructure.Data.Configurations;
 
-public class VocabCardsConfiguration: IEntityTypeConfiguration<VocabCards>
+public class VocabCardsConfiguration : IEntityTypeConfiguration<VocabCard>
 {
-    public void Configure(EntityTypeBuilder<VocabCards> builder)
+    public void Configure(EntityTypeBuilder<VocabCard> builder)
     {
         builder.Property(t => t.Id).IsRequired();
         builder.Property(t => t.Word).IsRequired();

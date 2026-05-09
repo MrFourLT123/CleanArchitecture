@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CleanArchitecture.Domain.Entities;
 
-public class VocabCards
+public class VocabCard
 {
     public int Id { get; set; }
     public required string Word { get; set; }
