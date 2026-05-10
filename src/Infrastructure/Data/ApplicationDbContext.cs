@@ -35,11 +35,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<UserVocabTestResults> UserVocabTestResults => Set<UserVocabTestResults>();
 
-    public DbSet<VocabTestOptions> VocabTestOptions => Set<VocabTestOptions>();
+    public DbSet<VocabTestOption> VocabTestOptions => Set<VocabTestOption>();
 
     public DbSet<VocabTests> VocabTests => Set<VocabTests>();
 
-    public DbSet<VocabTestQuestions> VocabTestQuestions => Set<VocabTestQuestions>();
+    public DbSet<VocabTestQuestion> VocabTestQuestions => Set<VocabTestQuestion>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

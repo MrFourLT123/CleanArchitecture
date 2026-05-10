@@ -14,5 +14,8 @@ public interface IApplicationDbContext
     DbSet<Progress> Progresses { get; }
     DbSet<UserAchivement> UserAchivements { get; }
     DbSet<VocabCard> VocabCards { get; }
+    DbSet<VocabTestQuestion> VocabTestQuestions { get; }
+
+    DbSet<VocabTestOption> VocabTestOptions { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

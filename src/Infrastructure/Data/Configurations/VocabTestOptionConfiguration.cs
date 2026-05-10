@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CleanArchitecture.Infrastructure.Data.Configurations;
 
-public class VocabTestOptionConfiguration : IEntityTypeConfiguration<VocabTestOptions>
+public class VocabTestOptionConfiguration : IEntityTypeConfiguration<VocabTestOption>
 {
-    public void Configure(EntityTypeBuilder<VocabTestOptions> builder)
+    public void Configure(EntityTypeBuilder<VocabTestOption> builder)
     {
-        builder.Property(t=> t.Id)
+        builder.Property(t => t.Id)
             .IsRequired();
-        builder.Property(t=> t.VocabTestQuestionId)
+        builder.Property(t => t.VocabTestQuestionId)
             .IsRequired();
         builder.Property(t => t.OptionLabel)
              .HasMaxLength(10)
