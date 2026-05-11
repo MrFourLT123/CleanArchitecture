@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CleanArchitecture.Domain.Entities;
 
-public class UserVocabTestAnswers
+public class UserVocabTestAnswer
 {
     public int Id { get; set; }
     public int UserVocabTestResultId { get; set; }

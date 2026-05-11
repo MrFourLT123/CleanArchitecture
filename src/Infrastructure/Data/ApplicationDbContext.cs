@@ -31,7 +31,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<UserAchivement> UserAchivements => Set<UserAchivement>();
 
-    public DbSet<UserVocabTestAnswers> UserVocabTestAnswers => Set<UserVocabTestAnswers>();
+    public DbSet<UserVocabTestAnswer> UserVocabTestAnswers => Set<UserVocabTestAnswer>();
 
     public DbSet<UserVocabTestResults> UserVocabTestResults => Set<UserVocabTestResults>();
 
