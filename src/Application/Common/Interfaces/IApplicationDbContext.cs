@@ -18,7 +18,7 @@ public interface IApplicationDbContext
 
     DbSet<VocabTestOption> VocabTestOptions { get; }
     DbSet<UserVocabTestAnswer> UserVocabTestAnswers { get; }
-    DbSet<UserVocabTestResults> UserVocabTestResults { get; }
+    DbSet<UserVocabTestResult> UserVocabTestResults { get; }
     DbSet<VocabTests> VocabTests { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

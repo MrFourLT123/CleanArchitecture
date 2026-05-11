@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CleanArchitecture.Infrastructure.Data.Configurations;
 
-public class UserVocabTestResultConfiguration: IEntityTypeConfiguration<UserVocabTestResults>
+public class UserVocabTestResultConfiguration : IEntityTypeConfiguration<UserVocabTestResult>
 {
-    public void Configure(EntityTypeBuilder<UserVocabTestResults> builder)
+    public void Configure(EntityTypeBuilder<UserVocabTestResult> builder)
     {
         builder.Property(t => t.Id).IsRequired();
         builder.Property(t => t.UserId).IsRequired();

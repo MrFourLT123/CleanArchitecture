@@ -33,7 +33,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<UserVocabTestAnswer> UserVocabTestAnswers => Set<UserVocabTestAnswer>();
 
-    public DbSet<UserVocabTestResults> UserVocabTestResults => Set<UserVocabTestResults>();
+    public DbSet<UserVocabTestResult> UserVocabTestResults => Set<UserVocabTestResult>();
 
     public DbSet<VocabTestOption> VocabTestOptions => Set<VocabTestOption>();
 
