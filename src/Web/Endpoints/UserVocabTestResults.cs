@@ -1,5 +1,6 @@
 using CleanArchitecture.Application.UserVocabTestResults.Commands.CreateUserVocabTestResult;
 using CleanArchitecture.Application.UserVocabTestResults.Commands.DeleteUserVocabTestResult;
+using CleanArchitecture.Application.UserVocabTestResults.Commands.UpdateUserVocabTestResult;
 using CleanArchitecture.Application.UserVocabTestResults.Queries.GetUserVocabTestResults;
 using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -35,7 +36,7 @@ public class UserVocabTestResults : IEndpointGroup
     }
 
     [EndpointSummary("Update an existing UserVocabTestResult")]
-    [EndpointDescription("Updates an existing user vocab test result with the specified ID.")]
+    [EndpointDescription("Updates an existing user vocab test result using the provided details.")]
     public static async Task<Results<NoContent, BadRequest>> UpdateUserVocabTestResult(ISender sender, int id, UpdateUserVocabTestResultCommand command)
     {
         if (id != command.Id)
