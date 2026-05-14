@@ -76,4 +76,63 @@ public static class DependencyInjection
         builder.Services.AddSingleton(TimeProvider.System);
         builder.Services.AddTransient<IIdentityService, IdentityService>();
     }
+
+    public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
+    {
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
+
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
+        {
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+#if (UsePostgreSQL)
+            options.UseNpgsql(connectionString);
+#elif (UseSqlServer)
+            options.UseSqlServer(connectionString);
+#else
+            options.UseSqlite(connectionString);
+#endif
+            options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+        });
+
+        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<ApplicationDbContextInitialiser>();
+
+#if (UseApiOnly)
+        services.AddAuthentication()
+            .AddBearerToken(IdentityConstants.BearerScheme);
+
+        services.AddAuthorizationBuilder();
+
+        services
+            .AddIdentityCore<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddApiEndpoints();
+#else
+        services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            })
+            .AddIdentityCookies();
+
+        services.AddAuthorizationBuilder();
+
+        services
+            .AddIdentityCore<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddSignInManager()
+            .AddDefaultTokenProviders()
+
+            .AddApiEndpoints();
+#endif
+
+        services.AddSingleton(TimeProvider.System);
+        services.AddTransient<IIdentityService, IdentityService>();
+    }
 }
