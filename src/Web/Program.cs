@@ -14,14 +14,15 @@ builder.Services.AddHealthChecks();
 var app = builder.Build();
 
 // Initialize database on startup
-if (app.Environment.IsDevelopment())
-{
-    await app.InitialiseDatabaseAsync();
-}
-else
-{
-    app.UseHsts();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     // await app.InitialiseDatabaseAsync();
+// }
+// else
+// {
+//     app.UseHsts();
+// }
+app.UseHsts();
 
 app.UseHttpsRedirection();
 app.UseCors(static builder =>
