@@ -17,7 +17,10 @@ public class VocabCardsConfiguration : IEntityTypeConfiguration<VocabCard>
         builder.Property(t => t.ExampleSentence);
         builder.Property(t => t.ImageUrl);
         builder.Property(t => t.AudioUrl);
+        builder.Property(t => t.PartOfSpeech);
+        builder.Property(t => t.Ipa);
+        builder.Property(t => t.Synonyms);
+        builder.Property(t => t.Level);
         builder.Property(t => t.CategoryId).IsRequired();
-        builder.Property(t => t.CreatedAt).IsRequired();
     }
 }

@@ -28,8 +28,7 @@ public class CreateVocabCardCommandHandler : IRequestHandler<CreateVocabCardComm
             ExampleSentence = request.ExampleSentence,
             ImageUrl = request.ImageUrl,
             AudioUrl = request.AudioUrl,
-            CategoryId = request.CategoryId,
-            CreatedAt = DateTime.UtcNow
+            CategoryId = request.CategoryId
         };
         _context.VocabCards.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
