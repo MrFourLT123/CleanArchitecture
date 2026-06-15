@@ -10,6 +10,11 @@ public record CreateVocabCardCommand : IRequest<int>
     public string? ImageUrl { get; set; }
     public string? AudioUrl { get; set; }
     public int CategoryId { get; set; }
+    public string? PartOfSpeech { get; set; }
+    public string? Ipa { get; set; }
+    public string? Synonyms { get; set; }
+    public string? Level { get; set; }
+
 }
 
 public class CreateVocabCardCommandHandler : IRequestHandler<CreateVocabCardCommand, int>
