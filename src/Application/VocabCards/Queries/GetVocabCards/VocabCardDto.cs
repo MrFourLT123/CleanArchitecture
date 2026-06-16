@@ -16,13 +16,17 @@ public class VocabCardDto
     public string? Ipa { get; set; }
     public string? Synonyms { get; set; }
     public string? Level { get; set; }
+    public string? MeaningVN { get; set; }
+    public string? PronunciationTip { get; set; }
 
     private class Mapping : Profile
     {
         public Mapping()
         {
             _ = CreateMap<VocabCard, VocabCardDto>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category != null ? src.Category.Name : null));
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category != null ? src.Category.Name : null))
+                .ForMember(dest => dest.MeaningVN, opt => opt.MapFrom(src => src.MeaningVN))
+                .ForMember(dest => dest.PronunciationTip, opt => opt.MapFrom(src => src.PronunciationTip));
         }
     }
 

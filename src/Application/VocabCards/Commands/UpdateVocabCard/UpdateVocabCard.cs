@@ -15,6 +15,8 @@ public record UpdateVocabCardCommand : IRequest
     public string? Ipa { get; set; }
     public string? Synonyms { get; set; }
     public string? Level { get; set; }
+    public string? MeaningVN { get; set; }
+    public string? PronunciationTip { get; set; }
 }
 
 public class UpdateVocabCardCommandHandler : IRequestHandler<UpdateVocabCardCommand>

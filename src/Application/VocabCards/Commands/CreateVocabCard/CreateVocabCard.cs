@@ -14,6 +14,8 @@ public record CreateVocabCardCommand : IRequest<int>
     public string? Ipa { get; set; }
     public string? Synonyms { get; set; }
     public string? Level { get; set; }
+    public string? MeaningVN { get; set; }
+    public string? PronunciationTip { get; set; }
 
 }
 
