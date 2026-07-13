@@ -1,6 +1,6 @@
-namespace CleanArchitecture.Domain.Entities;
-
-public class DetailConversation
+using CleanArchitecture.Domain.Entities;
+using AutoMapper;
+public class DetailConversationDto
 {
     public int Id { get; set; }
     public int ConversationId { get; set; } = 0;
@@ -8,4 +8,12 @@ public class DetailConversation
     public string SideAVN { get; set; } = string.Empty;
     public string SideB { get; set; } = string.Empty;
     public string SideBVN { get; set; } = string.Empty;
+
+    private class Mapping : Profile
+    {
+        public Mapping()
+        {
+            CreateMap<DetailConversation, DetailConversationDto>();
+        }
+    }
 }
