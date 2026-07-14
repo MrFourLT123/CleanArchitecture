@@ -22,7 +22,15 @@ public class GetConversationsQueryHandler : IRequestHandler<GetConversationsQuer
 
     public async Task<List<Conversation>> Handle(GetConversationsQuery request, CancellationToken cancellationToken)
     {
-        var listConversation = await _context.Conversations.ToListAsync(cancellationToken);
-        return listConversation;
+        try
+        {
+            var listConversation = await _context.Conversations.ToListAsync(cancellationToken);
+            return listConversation;
+        }
+        catch (Exception ex)
+        {
+            // Log the exception or handle it as needed
+            throw new ApplicationException("An error occurred while retrieving conversations.", ex);
+        }
     }
 }

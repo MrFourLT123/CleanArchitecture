@@ -18,9 +18,9 @@ public class DetailConversations : IEndpointGroup
 
     [EndpointSummary("Get all DetailConversations")]
     [EndpointDescription("Retrieves all DetailConversations along with their details.")]
-    public static async Task<Ok<List<DetailConversation>>> GetDetailConversationList(ISender sender)
+    public static async Task<Ok<List<DetailConversation>>> GetDetailConversationList(ISender sender, int conversationId)
     {
-        var query = new GetDetailConversationsQuery();
+        var query = new GetDetailConversationsQuery(conversationId);
         var DetailConversations = await sender.Send(query);
         return TypedResults.Ok(DetailConversations);
     }
