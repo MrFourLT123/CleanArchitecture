@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 
-namespace CleanArchitecture.Application.DetailConversation.Commands.UpdateDetailConversation;
+namespace CleanArchitecture.Application.DetailConversations.Commands.UpdateDetailConversation;
 
 public record UpdateDetailConversationCommand : IRequest
 {

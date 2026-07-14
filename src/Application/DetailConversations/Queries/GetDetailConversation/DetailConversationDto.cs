@@ -1,5 +1,7 @@
 using CleanArchitecture.Domain.Entities;
 using AutoMapper;
+namespace CleanArchitecture.Application.DetailConversations.Queries;
+
 public class DetailConversationDto
 {
     public int Id { get; set; }

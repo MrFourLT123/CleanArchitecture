@@ -6,8 +6,8 @@ public class DetailConversationConfiguration : IEntityTypeConfiguration<DetailCo
 {
     public void Configure(EntityTypeBuilder<DetailConversation> builder)
     {
-        builder.Property(t => t.DTID).IsRequired();
-        builder.Property(t => t.CID).IsRequired();
+        builder.Property(t => t.Id).IsRequired();
+        builder.Property(t => t.ConversationId).IsRequired();
         builder.Property(t => t.SideA).IsRequired();
         builder.Property(t => t.SideAVN).IsRequired(false);
         builder.Property(t => t.SideB).IsRequired();
