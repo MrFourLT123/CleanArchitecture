@@ -45,6 +45,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<DetailConversation> DetailConversations => Set<DetailConversation>();
 
+    public DbSet<Phrases1000> Phrases1000 => Set<Phrases1000>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

@@ -20,7 +20,6 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <!--#endif-->
   </ItemGroup>
 
