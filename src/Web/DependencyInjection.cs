@@ -23,6 +23,7 @@ public static class DependencyInjection
             options.SuppressModelStateInvalidFilter = true);
 
         builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddMemoryCache();
 
         builder.Services.AddOpenApi(options =>
         {
