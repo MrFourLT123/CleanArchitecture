@@ -2,13 +2,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
@@ -18,10 +19,7 @@
       "es2022",
       "dom"
     ],
-    "ignoreDeprecations": "6.0",
-    "useDefineForClassFields": false,
-
-    
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
