@@ -22,6 +22,7 @@ public interface IApplicationDbContext
     DbSet<VocabTests> VocabTests { get; }
 
     DbSet<Phrases1000> Phrases1000 { get; }
+    DbSet<FunStory> FunStories { get; }
 
     DbSet<Conversation> Conversations { get; }
     DbSet<DetailConversation> DetailConversations { get; }
