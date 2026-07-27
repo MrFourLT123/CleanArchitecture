@@ -2,7 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "noImplicitReturns": true,
@@ -19,7 +18,10 @@
       "es2022",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "ignoreDeprecations": "6.0",
+    "useDefineForClassFields": false,
+
+    
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
