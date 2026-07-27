@@ -41,6 +41,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<VocabTestQuestion> VocabTestQuestions => Set<VocabTestQuestion>();
 
+    public DbSet<Conversation> Conversations => Set<Conversation>();
+
+    public DbSet<DetailConversation> DetailConversations => Set<DetailConversation>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
