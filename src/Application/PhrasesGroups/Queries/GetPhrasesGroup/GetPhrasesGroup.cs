@@ -1,44 +1,45 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Application.Phrases1000s.Queries;
+namespace CleanArchitecture.Application.PhrasesGroups.Queries;
 
-public record GetPhrases1000sQuery(int groupId) : IRequest<List<Phrases1000>>;
+public record GetPhrasesGroupQuery : IRequest<List<PhrasesGroup>>;
 
-public class GetPhrases1000sQueryHandler : IRequestHandler<GetPhrases1000sQuery, List<Phrases1000>>
+public class GetPhrasesGroupQueryHandler : IRequestHandler<GetPhrasesGroupQuery, List<PhrasesGroup>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly IMemoryCache _memoryCache;
+
+    private const string CACHE_KEY = "PhrasesGroup_All";
     private static readonly TimeSpan CacheDuratioin = TimeSpan.FromDays(10);
 
-    public GetPhrases1000sQueryHandler(IApplicationDbContext context, IMapper mapper, IMemoryCache cache)
+    public GetPhrasesGroupQueryHandler(IApplicationDbContext context, IMapper mapper, IMemoryCache cache)
     {
         _context = context;
         _mapper = mapper;
         _memoryCache = cache;
     }
 
-    public async Task<List<Phrases1000>> Handle(GetPhrases1000sQuery request, CancellationToken cancellationToken)
+    public async Task<List<PhrasesGroup>> Handle(GetPhrasesGroupQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            string cache_key = $"Phrases_group_{request.groupId}";
-            if (_memoryCache.TryGetValue(cache_key, out List<Phrases1000>? cachedData) && cachedData is not null)
+            if (_memoryCache.TryGetValue(CACHE_KEY, out List<PhrasesGroup>? cachedData) && cachedData is not null)
             {
                 return cachedData;
             }
-            var listPhrases1000 = await _context.Phrases1000.Where(p => p.GroupId == request.groupId).ToListAsync(cancellationToken);
+
+            var listPhrasesGroup = await _context.PhrasesGroup.ToListAsync(cancellationToken);
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(CacheDuratioin)
                 .SetSlidingExpiration(TimeSpan.FromMinutes(2))
                 .SetPriority(CacheItemPriority.Normal);
 
-            _memoryCache.Set(cache_key, listPhrases1000, cacheEntryOptions);
+            _memoryCache.Set(CACHE_KEY, listPhrasesGroup, cacheEntryOptions);
 
-            return listPhrases1000;
+            return listPhrasesGroup;
         }
         catch (Exception ex)
         {

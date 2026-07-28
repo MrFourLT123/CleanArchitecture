@@ -49,6 +49,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<FunStory> FunStories => Set<FunStory>();
 
+    public DbSet<PhrasesGroup> PhrasesGroup => Set<PhrasesGroup>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

@@ -12,9 +12,9 @@ public class Phrases1000s : IEndpointGroup
 
     [EndpointSummary("Get all Phrases1000s")]
     [EndpointDescription("Retrieves all Phrases1000s along with their details.")]
-    public static async Task<Ok<List<Phrases1000>>> GetPhrases1000List(ISender sender)
+    public static async Task<Ok<List<Phrases1000>>> GetPhrases1000List(ISender sender, int groupId)
     {
-        var query = new GetPhrases1000sQuery();
+        var query = new GetPhrases1000sQuery(groupId);
         var Phrases1000s = await sender.Send(query);
         return TypedResults.Ok(Phrases1000s);
     }
