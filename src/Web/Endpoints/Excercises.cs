@@ -1,3 +1,4 @@
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Excercises.Commands.CreateExcercise;
 using CleanArchitecture.Application.Excercises.Commands.DeleteExcercise;
 using CleanArchitecture.Application.Excercises.Commands.UpdateExcercise;
@@ -17,11 +18,10 @@ public class Excercises : IEndpointGroup
         groupBuilder.MapDelete(DeleteExcercises, "{id}");
     }
 
-    [EndpointSummary("Get all Excercises")]
-    [EndpointDescription("Retrieves all Excercises along with their details.")]
-    public static async Task<Ok<List<Excercise>>> GetExcercisesAsync(ISender sender)
+    [EndpointSummary("Get paginated Excercises")]
+    [EndpointDescription("Retrieves paginated Excercises along with their details.")]
+    public static async Task<Ok<PaginatedList<ExcerciseDto>>> GetExcercisesAsync(ISender sender, [AsParameters] GetExcercisesQuery query)
     {
-        var query = new GetExcercisesQuery();
         var excercises = await sender.Send(query);
         return TypedResults.Ok(excercises);
     }

@@ -1,20 +1,26 @@
 
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace CleanArchitecture.Application.FunStories.Queries;
 
-public record GetFunStoriesQuery : IRequest<List<FunStory>>;
+public record GetFunStoriesQuery : IRequest<PaginatedList<FunStoriesDTO>>
+{
+    public int PageNumber { get; init; } = 1;
+    public int PageSize { get; init; } = 10;
+}
 
-public class GetFunStoriesQueryHandler : IRequestHandler<GetFunStoriesQuery, List<FunStory>>
+public class GetFunStoriesQueryHandler : IRequestHandler<GetFunStoriesQuery, PaginatedList<FunStoriesDTO>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly IMemoryCache _cache;
 
     private const string CACHE_KEY = "FunStories_All";
-    private static readonly TimeSpan CacheDuratioin = TimeSpan.FromDays(10);
+    private static readonly TimeSpan CacheDuration = TimeSpan.FromDays(10);
 
     public GetFunStoriesQueryHandler(IApplicationDbContext context, IMapper mapper, IMemoryCache cache)
     {
@@ -23,24 +29,31 @@ public class GetFunStoriesQueryHandler : IRequestHandler<GetFunStoriesQuery, Lis
         _cache = cache;
     }
 
-    public async Task<List<FunStory>> Handle(GetFunStoriesQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<FunStoriesDTO>> Handle(GetFunStoriesQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            if (_cache.TryGetValue(CACHE_KEY, out List<FunStory>? cachedStories) && cachedStories is not null)
+            if (!_cache.TryGetValue(CACHE_KEY, out List<FunStoriesDTO>? cachedStories) || cachedStories is null)
             {
-                return cachedStories;
+                cachedStories = await _context.FunStories
+                    .ProjectTo<FunStoriesDTO>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(CacheDuration)
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2))
+                    .SetPriority(CacheItemPriority.Normal);
+
+                _cache.Set(CACHE_KEY, cachedStories, cacheEntryOptions);
             }
 
-            var listFunStories = await _context.FunStories.ToListAsync(cancellationToken);
-            var cacheEntryOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(CacheDuratioin)
-                .SetSlidingExpiration(TimeSpan.FromMinutes(2))
-                .SetPriority(CacheItemPriority.Normal);
+            var count = cachedStories.Count;
+            var items = cachedStories
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToList();
 
-            _cache.Set(CACHE_KEY, listFunStories, cacheEntryOptions);
-
-            return listFunStories;
+            return new PaginatedList<FunStoriesDTO>(items, count, request.PageNumber, request.PageSize);
         }
         catch (Exception ex)
         {
@@ -49,3 +62,4 @@ public class GetFunStoriesQueryHandler : IRequestHandler<GetFunStoriesQuery, Lis
         }
     }
 }
+

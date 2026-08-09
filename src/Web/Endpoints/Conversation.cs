@@ -1,8 +1,8 @@
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Conversations.Commands.CreateConversation;
 using CleanArchitecture.Application.Conversations.Commands.DeleteConversation;
 using CleanArchitecture.Application.Conversations.Commands.UpdateConversation;
 using CleanArchitecture.Application.Conversations.Queries;
-using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 namespace CleanArchitecture.Web.Endpoints;
 
@@ -16,13 +16,12 @@ public class Conversations : IEndpointGroup
         groupBuilder.MapDelete(DeleteConversation, "{id}");
     }
 
-    [EndpointSummary("Get all Conversations")]
-    [EndpointDescription("Retrieves all Conversations along with their details.")]
-    public static async Task<Ok<List<Conversation>>> GetConversationList(ISender sender)
+    [EndpointSummary("Get paginated Conversations")]
+    [EndpointDescription("Retrieves paginated Conversations along with their details.")]
+    public static async Task<Ok<PaginatedList<ConversationDto>>> GetConversationList(ISender sender, [AsParameters] GetConversationsQuery query)
     {
-        var query = new GetConversationsQuery();
-        var Conversations = await sender.Send(query);
-        return TypedResults.Ok(Conversations);
+        var conversations = await sender.Send(query);
+        return TypedResults.Ok(conversations);
     }
 
     [EndpointSummary("Create a new Conversation")]

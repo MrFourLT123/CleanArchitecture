@@ -1,3 +1,4 @@
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.LeaderBoards.Commands.CreateLeaderboard;
 using CleanArchitecture.Application.LeaderBoards.Commands.DeleteLeaderboard;
 using CleanArchitecture.Application.LeaderBoards.Commands.UpdateLeaderboard;
@@ -17,11 +18,10 @@ public class Leaderboards : IEndpointGroup
         groupBuilder.MapDelete(DeleteLeaderboards, "{id}");
     }
 
-    [EndpointSummary("Get all Leaderboards")]
-    [EndpointDescription("Retrieves all Leaderboards along with their details.")]
-    public static async Task<Ok<List<Leaderboard>>> GetLeaderboardsAsync(ISender sender)
+    [EndpointSummary("Get paginated Leaderboards")]
+    [EndpointDescription("Retrieves paginated Leaderboards along with their details.")]
+    public static async Task<Ok<PaginatedList<LeaderboardDto>>> GetLeaderboardsAsync(ISender sender, [AsParameters] GetLeaderboardsQuery query)
     {
-        var query = new GetLeaderboardsQuery();
         var leaderboards = await sender.Send(query);
         return TypedResults.Ok(leaderboards);
     }

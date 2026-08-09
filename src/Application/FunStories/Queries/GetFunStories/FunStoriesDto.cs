@@ -1,5 +1,7 @@
 using CleanArchitecture.Domain.Entities;
 
+namespace CleanArchitecture.Application.FunStories.Queries;
+
 public class FunStoriesDTO
 {
     public int Id { get; set; }
@@ -15,3 +17,4 @@ public class FunStoriesDTO
         }
     }
 }
+

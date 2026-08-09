@@ -1,5 +1,7 @@
 using CleanArchitecture.Domain.Entities;
 
+namespace CleanArchitecture.Application.Conversations.Queries;
+
 public class ConversationDto
 {
     public int Id { get; set; }
