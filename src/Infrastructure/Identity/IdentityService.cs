@@ -47,6 +47,11 @@ public class IdentityService : IIdentityService
 
     public async Task<(Result Result, AuthResponse? AuthResponse)> AuthenticateAsync(string userNameOrEmail, string password)
     {
+        if (string.IsNullOrWhiteSpace(userNameOrEmail) || string.IsNullOrWhiteSpace(password))
+        {
+            return (Result.Failure(new[] { "Invalid username/email or password." }), null);
+        }
+
         var user = await _userManager.FindByEmailAsync(userNameOrEmail)
                    ?? await _userManager.FindByNameAsync(userNameOrEmail);
 
@@ -80,6 +85,11 @@ public class IdentityService : IIdentityService
 
     public async Task<(Result Result, AuthResponse? AuthResponse)> RegisterAsync(string userName, string email, string password)
     {
+        if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        {
+            return (Result.Failure(new[] { "Username, email, and password are required." }), null);
+        }
+
         var existingUser = await _userManager.FindByEmailAsync(email)
                            ?? await _userManager.FindByNameAsync(userName);
 

@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Infrastructure.Identity;
 
 public class ApplicationUser : IdentityUser
 {
+    public string? Name { get; set; }
+    public string? AvatarUrl { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
