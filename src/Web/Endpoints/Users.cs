@@ -11,9 +11,9 @@ public class Users : IEndpointGroup
 {
     public static void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapPost(Login, "login");
-        groupBuilder.MapPost(Register, "register");
-        groupBuilder.MapGet(GetMe, "me").RequireAuthorization();
+        groupBuilder.MapPost(Login, "login").AllowAnonymous();
+        groupBuilder.MapPost(Register, "register").AllowAnonymous();
+        groupBuilder.MapGet(GetMe, "me");
     }
 
     [EndpointSummary("User Login")]
