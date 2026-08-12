@@ -34,6 +34,9 @@ app.MapOpenApi();
 app.MapScalarApiReference();
 app.UseExceptionHandler(options => { });
 
+// Enforce App-level security first
+app.UseMiddleware<ApiKeyMiddleware>();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
