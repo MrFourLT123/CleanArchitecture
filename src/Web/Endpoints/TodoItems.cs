@@ -10,8 +10,6 @@ public class TodoItems : IEndpointGroup
 {
     public static void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.RequireAuthorization();
-
         groupBuilder.MapPost(CreateTodoItem);
         groupBuilder.MapPut(UpdateTodoItem, "{id}");
         groupBuilder.MapPatch(UpdateTodoItemDetail, "UpdateDetail/{id}");

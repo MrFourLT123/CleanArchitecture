@@ -4,7 +4,7 @@ namespace CleanArchitecture.Application.Progresses.Commands.CreateProgress;
 
 public record CreateProgressCommand : IRequest<int>
 {
-    public int UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
     public int LessonId { get; set; }
     public bool Completed { get; set; }
     public int Score { get; set; }

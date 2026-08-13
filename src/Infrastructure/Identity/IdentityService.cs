@@ -11,15 +11,18 @@ public class IdentityService : IIdentityService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
+    private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
     public IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
+        IAuthorizationService authorizationService,
+        IJwtTokenGenerator jwtTokenGenerator)
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
+        _jwtTokenGenerator = jwtTokenGenerator;
     }
 
     public async Task<string?> GetUserNameAsync(string userId)
@@ -40,6 +43,88 @@ public class IdentityService : IIdentityService
         var result = await _userManager.CreateAsync(user, password);
 
         return (result.ToApplicationResult(), user.Id);
+    }
+
+    public async Task<(Result Result, AuthResponse? AuthResponse)> AuthenticateAsync(string userNameOrEmail, string password)
+    {
+        if (string.IsNullOrWhiteSpace(userNameOrEmail) || string.IsNullOrWhiteSpace(password))
+        {
+            return (Result.Failure(new[] { "Invalid username/email or password." }), null);
+        }
+
+        var user = await _userManager.FindByEmailAsync(userNameOrEmail)
+                   ?? await _userManager.FindByNameAsync(userNameOrEmail);
+
+        if (user == null)
+        {
+            return (Result.Failure(new[] { "Invalid username/email or password." }), null);
+        }
+
+        var isPasswordValid = await _userManager.CheckPasswordAsync(user, password);
+        if (!isPasswordValid)
+        {
+            return (Result.Failure(new[] { "Invalid username/email or password." }), null);
+        }
+
+        var roles = await _userManager.GetRolesAsync(user);
+
+        var (token, expiration) = _jwtTokenGenerator.GenerateToken(user.Id, user.UserName ?? string.Empty, user.Email ?? string.Empty, roles);
+
+        var authResponse = new AuthResponse
+        {
+            Token = token,
+            Expiration = expiration,
+            UserId = user.Id,
+            UserName = user.UserName ?? string.Empty,
+            Email = user.Email ?? string.Empty,
+            Roles = roles
+        };
+
+        return (Result.Success(), authResponse);
+    }
+
+    public async Task<(Result Result, AuthResponse? AuthResponse)> RegisterAsync(string userName, string email, string password)
+    {
+        if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        {
+            return (Result.Failure(new[] { "Username, email, and password are required." }), null);
+        }
+
+        var existingUser = await _userManager.FindByEmailAsync(email)
+                           ?? await _userManager.FindByNameAsync(userName);
+
+        if (existingUser != null)
+        {
+            return (Result.Failure(new[] { "User with this username or email already exists." }), null);
+        }
+
+        var user = new ApplicationUser
+        {
+            UserName = userName,
+            Email = email
+        };
+
+        var result = await _userManager.CreateAsync(user, password);
+
+        if (!result.Succeeded)
+        {
+            return (result.ToApplicationResult(), null);
+        }
+
+        var roles = await _userManager.GetRolesAsync(user);
+        var (token, expiration) = _jwtTokenGenerator.GenerateToken(user.Id, user.UserName, user.Email, roles);
+
+        var authResponse = new AuthResponse
+        {
+            Token = token,
+            Expiration = expiration,
+            UserId = user.Id,
+            UserName = user.UserName,
+            Email = user.Email,
+            Roles = roles
+        };
+
+        return (Result.Success(), authResponse);
     }
 
     public async Task<bool> IsInRoleAsync(string userId, string role)

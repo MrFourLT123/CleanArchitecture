@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using Application.VocabCards.Queries.GetVocabCards;
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.VocabCards.Commands.CreateVocabCard;
 using CleanArchitecture.Application.VocabCards.Commands.DeleteVocabCard;
 using CleanArchitecture.Application.VocabCards.Commands.UpdateVocabCard;
@@ -19,11 +20,10 @@ public class VocabCards : IEndpointGroup
         groupBuilder.MapDelete(DeleteVocabCard, "{id}");
     }
 
-    [EndpointSummary("Get all VocabCards")]
-    [EndpointDescription("Retrieves all vocab cards along with their details.")]
-    public static async Task<Ok<List<VocabCardDto>>> GetVocabCardList(ISender sender)
+    [EndpointSummary("Get paginated VocabCards")]
+    [EndpointDescription("Retrieves paginated vocab cards along with their details.")]
+    public static async Task<Ok<PaginatedList<VocabCardDto>>> GetVocabCardList(ISender sender, [AsParameters] GetVocabCardQuery query)
     {
-        var query = new GetVocabCardQuery();
         var vocabCards = await sender.Send(query);
         return TypedResults.Ok(vocabCards);
     }

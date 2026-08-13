@@ -6,7 +6,7 @@ namespace CleanArchitecture.Application.UserAchivements.Commands.CreateUserAchiv
 public record CreateUserAchivementCommand : IRequest<int>
 {
     public int Id { get; set; }
-    public int UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
     public int AchivementId { get; set; }
 }
 

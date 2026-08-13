@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Application.Common.Models;
+namespace CleanArchitecture.Application.Common.Models;
 
 public class Result
 {
@@ -20,5 +20,25 @@ public class Result
     public static Result Failure(IEnumerable<string> errors)
     {
         return new Result(false, errors);
+    }
+}
+
+public class Result<T> : Result
+{
+    internal Result(bool succeeded, T? value, IEnumerable<string> errors) : base(succeeded, errors)
+    {
+        Value = value;
+    }
+
+    public T? Value { get; }
+
+    public static Result<T> Success(T value)
+    {
+        return new Result<T>(true, value, Array.Empty<string>());
+    }
+
+    public new static Result<T> Failure(IEnumerable<string> errors)
+    {
+        return new Result<T>(false, default, errors);
     }
 }
