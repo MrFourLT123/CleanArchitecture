@@ -16,5 +16,9 @@ public interface IIdentityService
 
     Task<(Result Result, AuthResponse? AuthResponse)> RegisterAsync(string userName, string email, string password);
 
+    Task<(Result Result, AuthResponse? AuthResponse)> GoogleLoginAsync(string idToken, string? email, string? name);
+
+    Task<(Result Result, AuthResponse? AuthResponse)> AppleLoginAsync(string identityToken, string? email, string? fullName);
+
     Task<Result> DeleteUserAsync(string userId);
 }

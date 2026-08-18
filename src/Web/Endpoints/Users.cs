@@ -1,5 +1,7 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
+using CleanArchitecture.Application.Identity.Commands.AppleLogin;
+using CleanArchitecture.Application.Identity.Commands.GoogleLogin;
 using CleanArchitecture.Application.Identity.Commands.Login;
 using CleanArchitecture.Application.Identity.Commands.Register;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -13,6 +15,8 @@ public class Users : IEndpointGroup
     {
         groupBuilder.MapPost(Login, "login").AllowAnonymous();
         groupBuilder.MapPost(Register, "register").AllowAnonymous();
+        groupBuilder.MapPost(GoogleLogin, "google-login").AllowAnonymous();
+        groupBuilder.MapPost(AppleLogin, "apple-login").AllowAnonymous();
         groupBuilder.MapGet(GetMe, "me");
     }
 
@@ -33,6 +37,34 @@ public class Users : IEndpointGroup
     [EndpointSummary("User Registration")]
     [EndpointDescription("Registers a new user account and returns a JWT access token.")]
     public static async Task<Results<Ok<AuthResponse>, BadRequest<string[]>>> Register(ISender sender, [FromBody] RegisterCommand command)
+    {
+        var result = await sender.Send(command);
+
+        if (!result.Succeeded || result.Value == null)
+        {
+            return TypedResults.BadRequest(result.Errors);
+        }
+
+        return TypedResults.Ok(result.Value);
+    }
+
+    [EndpointSummary("Google Login")]
+    [EndpointDescription("Authenticates a user via a Google ID token and returns a JWT access token. Auto-creates the account on first login.")]
+    public static async Task<Results<Ok<AuthResponse>, BadRequest<string[]>>> GoogleLogin(ISender sender, [FromBody] GoogleLoginCommand command)
+    {
+        var result = await sender.Send(command);
+
+        if (!result.Succeeded || result.Value == null)
+        {
+            return TypedResults.BadRequest(result.Errors);
+        }
+
+        return TypedResults.Ok(result.Value);
+    }
+
+    [EndpointSummary("Apple Login")]
+    [EndpointDescription("Authenticates a user via an Apple identity token and returns a JWT access token. Auto-creates the account on first login.")]
+    public static async Task<Results<Ok<AuthResponse>, BadRequest<string[]>>> AppleLogin(ISender sender, [FromBody] AppleLoginCommand command)
     {
         var result = await sender.Send(command);
 
