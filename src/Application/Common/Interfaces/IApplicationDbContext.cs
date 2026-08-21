@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.Common.Interfaces;
 
@@ -27,5 +27,13 @@ public interface IApplicationDbContext
 
     DbSet<Conversation> Conversations { get; }
     DbSet<DetailConversation> DetailConversations { get; }
+
+    // Progress tracking
+    DbSet<PhraseGroupProgress> PhraseGroupProgresses { get; }
+    DbSet<PhraseProgress> PhraseProgresses { get; }
+    DbSet<ConversationSession> ConversationSessions { get; }
+    DbSet<VocabularyProgress> VocabularyProgresses { get; }
+    DbSet<SpeakingProgress> SpeakingProgresses { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
