@@ -1,19 +1,15 @@
-using CleanArchitecture.Domain.Entities;
-
 namespace CleanArchitecture.Application.LeaderBoards.Queries.GetLeaderboards;
 
 public class LeaderboardDto
 {
-    public int Id { get; set; }
-    public required string UserId { get; set; }
-    public float Points { get; set; }
+    public string Id { get; set; } = string.Empty;
+    public string UserId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Avatar { get; set; } = string.Empty;
+    public int Xp { get; set; }
+    public int Points { get; set; }
+    public int Level { get; set; } = 1;
+    public int Streak { get; set; }
     public int Rank { get; set; }
-
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<Leaderboard, LeaderboardDto>();
-        }
-    }
+    public bool IsMe { get; set; }
 }

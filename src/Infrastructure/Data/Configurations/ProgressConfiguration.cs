@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using CleanArchitecture.Domain.Entities;
@@ -11,6 +11,7 @@ public class ProgressConfiguration : IEntityTypeConfiguration<CleanArchitecture.
 {
     public void Configure(EntityTypeBuilder<Progress> builder)
     {
+        builder.ToTable("Progress");
         builder.Property(t => t.Id).IsRequired();
         builder.Property(t =>t.UserId).IsRequired();
         builder.Property(t => t.LessonId).IsRequired();

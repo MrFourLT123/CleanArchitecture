@@ -41,6 +41,21 @@ public class IdentityService : IIdentityService
         return user?.UserName;
     }
 
+    public async Task<List<UserDetailsDto>> GetUsersAsync(IEnumerable<string> userIds, CancellationToken cancellationToken = default)
+    {
+        var idList = userIds.Distinct().ToList();
+        return await _userManager.Users
+            .Where(u => idList.Contains(u.Id))
+            .Select(u => new UserDetailsDto
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                Name = u.Name,
+                AvatarUrl = u.AvatarUrl
+            })
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
     {
         var user = new ApplicationUser
