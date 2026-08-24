@@ -57,6 +57,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<ConversationSession> ConversationSessions => Set<ConversationSession>();
     public DbSet<VocabularyProgress> VocabularyProgresses => Set<VocabularyProgress>();
     public DbSet<SpeakingProgress> SpeakingProgresses => Set<SpeakingProgress>();
+    public DbSet<WordProgress> WordProgresses => Set<WordProgress>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

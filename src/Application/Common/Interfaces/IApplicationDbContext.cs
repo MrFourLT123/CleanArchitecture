@@ -34,6 +34,7 @@ public interface IApplicationDbContext
     DbSet<ConversationSession> ConversationSessions { get; }
     DbSet<VocabularyProgress> VocabularyProgresses { get; }
     DbSet<SpeakingProgress> SpeakingProgresses { get; }
+    DbSet<WordProgress> WordProgresses { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
