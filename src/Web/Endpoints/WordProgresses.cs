@@ -9,8 +9,8 @@ public class WordProgresses : IEndpointGroup
 {
     public static void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapPost("/api/WordProgress/Sync", SyncWordProgress);
-        groupBuilder.MapGet("/api/WordProgress", GetWordProgress);
+        groupBuilder.MapPost("/Sync", SyncWordProgress);
+        groupBuilder.MapGet("/", GetWordProgress);
     }
 
     [EndpointSummary("Sync word progress")]
