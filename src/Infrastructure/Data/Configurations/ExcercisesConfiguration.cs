@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using CleanArchitecture.Domain.Entities;
@@ -11,6 +11,7 @@ public class ExcercisesConfiguration : IEntityTypeConfiguration<Excercise>
 {
     public void Configure(EntityTypeBuilder<Excercise> builder)
     {
+        builder.ToTable("Exercises");
         builder.Property(t => t.Id).IsRequired();
         builder.Property(t => t.LessonId).IsRequired();
         builder.Property(t => t.Question).IsRequired();

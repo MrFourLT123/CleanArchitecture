@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
@@ -50,6 +50,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<FunStory> FunStories => Set<FunStory>();
 
     public DbSet<PhrasesGroup> PhrasesGroup => Set<PhrasesGroup>();
+
+    // Progress tracking
+    public DbSet<PhraseGroupProgress> PhraseGroupProgresses => Set<PhraseGroupProgress>();
+    public DbSet<PhraseProgress> PhraseProgresses => Set<PhraseProgress>();
+    public DbSet<ConversationSession> ConversationSessions => Set<ConversationSession>();
+    public DbSet<VocabularyProgress> VocabularyProgresses => Set<VocabularyProgress>();
+    public DbSet<SpeakingProgress> SpeakingProgresses => Set<SpeakingProgress>();
+    public DbSet<WordProgress> WordProgresses => Set<WordProgress>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

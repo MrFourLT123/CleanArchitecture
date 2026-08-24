@@ -6,6 +6,8 @@ public interface IIdentityService
 {
     Task<string?> GetUserNameAsync(string userId);
 
+    Task<List<UserDetailsDto>> GetUsersAsync(IEnumerable<string> userIds, CancellationToken cancellationToken = default);
+
     Task<bool> IsInRoleAsync(string userId, string role);
 
     Task<bool> AuthorizeAsync(string userId, string policyName);
@@ -15,6 +17,10 @@ public interface IIdentityService
     Task<(Result Result, AuthResponse? AuthResponse)> AuthenticateAsync(string userNameOrEmail, string password);
 
     Task<(Result Result, AuthResponse? AuthResponse)> RegisterAsync(string userName, string email, string password);
+
+    Task<(Result Result, AuthResponse? AuthResponse)> GoogleLoginAsync(string idToken, string? email, string? name);
+
+    Task<(Result Result, AuthResponse? AuthResponse)> AppleLoginAsync(string identityToken, string? email, string? fullName);
 
     Task<Result> DeleteUserAsync(string userId);
 }

@@ -4,6 +4,7 @@ using CleanArchitecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchitecture.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260821161519_AddProgressSyncTables")]
+    partial class AddProgressSyncTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,7 +191,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exercises", (string)null);
+                    b.ToTable("Excercises");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.FunStory", b =>
@@ -228,8 +231,8 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Points")
-                        .HasColumnType("int");
+                    b.Property<float>("Points")
+                        .HasColumnType("real");
 
                     b.Property<int>("Rank")
                         .HasColumnType("int");
@@ -240,7 +243,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Leaderboard", (string)null);
+                    b.ToTable("Leaderboards");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Lesson", b =>
@@ -452,7 +455,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Progress", (string)null);
+                    b.ToTable("Progresses");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.SpeakingProgress", b =>
@@ -608,7 +611,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserAchievements", (string)null);
+                    b.ToTable("UserAchivements");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.UserVocabTestAnswer", b =>
@@ -846,72 +849,6 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("VocabularyProgresses");
-                });
-
-            modelBuilder.Entity("CleanArchitecture.Domain.Entities.WordProgress", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AverageScore")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BestPronunciationScore")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FirstAttemptDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("KnownAtDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastPracticedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LastScore")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MasteryLevel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PronunciationAttempts")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalAttempts")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("VocabularyAttempts")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VocabularyStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Word")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WordId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId", "WordId")
-                        .IsUnique();
-
-                    b.ToTable("WordProgresses");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Infrastructure.Identity.ApplicationUser", b =>

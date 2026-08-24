@@ -1,10 +1,10 @@
 using CleanArchitecture.Application.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.LeaderBoards.Commands.UpdateLeaderboard;
 
 public record UpdateLeaderboardCommand : IRequest
 {
-    public int Id { get; init; }
     public required string UserId { get; init; }
     public int Points { get; init; }
     public int Rank { get; init; }
@@ -18,13 +18,12 @@ public class UpdateLeaderboardCommandHandler : IRequestHandler<UpdateLeaderboard
         _context = context;
     }
 
-    public Task Handle(UpdateLeaderboardCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateLeaderboardCommand request, CancellationToken cancellationToken)
     {
-        var entity = _context.Leaderboards.Find(request.Id);
-        Guard.Against.NotFound(request.Id, entity);
-        entity.UserId = request.UserId;
+        var entity = await _context.Leaderboards.FirstOrDefaultAsync(l => l.UserId == request.UserId, cancellationToken);
+        Guard.Against.NotFound(request.UserId, entity);
         entity.Points = request.Points;
         entity.Rank = request.Rank;
-        return _context.SaveChangesAsync(cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

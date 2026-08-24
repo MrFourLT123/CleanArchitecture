@@ -12,9 +12,9 @@ public class Leaderboards : IEndpointGroup
 {
     public static void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGet("/leaderboards", GetLeaderboardsAsync);
+        groupBuilder.MapGet(GetLeaderboardsAsync);
         groupBuilder.MapPost(CreateLeaderboards);
-        groupBuilder.MapPut(UpdateLeaderboards, "{id}");
+        groupBuilder.MapPut(UpdateLeaderboards, "{userId}");
         groupBuilder.MapDelete(DeleteLeaderboards, "{id}");
     }
 
@@ -36,9 +36,9 @@ public class Leaderboards : IEndpointGroup
 
     [EndpointSummary("Update an existing Leaderboard")]
     [EndpointDescription("Updates an existing Leaderboard with the provided details.")]
-    public static async Task<Results<NoContent, BadRequest>> UpdateLeaderboards(ISender sender, int id, UpdateLeaderboardCommand command)
+    public static async Task<Results<NoContent, BadRequest>> UpdateLeaderboards(ISender sender, string userId, UpdateLeaderboardCommand command)
     {
-        if (id != command.Id)
+        if (userId != command.UserId)
             return TypedResults.BadRequest();
 
         await sender.Send(command);
