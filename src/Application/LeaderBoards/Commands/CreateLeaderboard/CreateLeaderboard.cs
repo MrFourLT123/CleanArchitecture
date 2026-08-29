@@ -1,4 +1,5 @@
 using CleanArchitecture.Application.Common.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CleanArchitecture.Application.LeaderBoards.Commands.CreateLeaderboard;
 
@@ -15,11 +16,14 @@ public class CreateLeaderboardsCommandHandler : IRequestHandler<CreateLeaderboar
 {
     private readonly IApplicationDbContext _context;
     private readonly IUser _user;
+    private readonly IMemoryCache _memoryCache;
+    private const string CACHE_KEY = "Leaderboard_All";
 
-    public CreateLeaderboardsCommandHandler(IApplicationDbContext context, IUser user)
+    public CreateLeaderboardsCommandHandler(IApplicationDbContext context, IUser user, IMemoryCache memoryCache)
     {
         _context = context;
         _user = user;
+        _memoryCache = memoryCache;
     }
 
     public async Task<int> Handle(CreateLeaderboardCommand request, CancellationToken cancellationToken)
@@ -39,6 +43,9 @@ public class CreateLeaderboardsCommandHandler : IRequestHandler<CreateLeaderboar
 
         _context.Leaderboards.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
+
+        // Invalidate in-memory cache so newly registered users/scores appear immediately
+        _memoryCache.Remove(CACHE_KEY);
 
         return entity.Id;
     }
